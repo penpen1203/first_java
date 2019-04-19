@@ -51,119 +51,122 @@
 			</nav>
 		</header>
 		<!-- Content Wrapper. Contains page content -->
-		<div class="content-wrapper" style="margin-left:0;">
-			<!-- Content Header (Page header) -->
-			<section class="content-header">
-				<h1>
-					日付カリキュレーター <small>日付計算装置</small>
-				</h1>
-			</section>
+		<div class="content-wrapper" style="margin-left: 0;">
+			<div class="container">
+				<!-- Content Header (Page header) -->
+				<section class="content-header">
+					<h1>
+						日付カリキュレーター <small>日付計算装置</small>
+					</h1>
+				</section>
 
-			<!-- Main content -->
-			<section class="content container-fluid">
-
-				<!--------------------------
-        | Your Page Content Here |
-        -------------------------->
-				<div class="box">
-					<div class="box-header with-border">
-						<h3 class="box-title">日付計算</h3>
-						<div class="box-tools pull-right">
-							<!-- Buttons, labels, and many other things can be placed here! -->
-							<!-- Here is a label for example -->
+				<!-- Main content -->
+				<section class="content container-fluid">
+					<div class="box">
+						<div class="box-header with-border">
+							<h3 class="box-title">日付計算</h3>
+							<div class="box-tools pull-right">
+								<!-- Buttons, labels, and many other things can be placed here! -->
+								<!-- Here is a label for example -->
+							</div>
+							<!-- /.box-tools -->
 						</div>
-						<!-- /.box-tools -->
-					</div>
-					<!-- /.box-header -->
-					<div class="box-body">
-						<div class="card card-info">
-							<!-- /.card-header -->
-							<!-- form start -->
-							<form class="form-horizontal" method="post" th:action="@{/index}" th:object="${calc}">
-								<div class="card-body">
-									<div class="form-group">
-										<label for="input" class="col-sm-2 control-label">基準日</label>
+						<!-- /.box-header -->
+						<div class="box-body">
+							<div class="card card-info">
+								<!-- /.card-header -->
+								<!-- form start -->
+								<form class="form-horizontal" method="post"
+									th:action="@{/index}" th:object="${calc}">
+									<div class="card-body">
+										<div class="form-group">
+											<label for="input" class="col-sm-2 control-label">基準日</label>
 
-										<div class="col-sm-8">
-											<div class="input-group date">
-												<div class="input-group-addon">
-													<i class="fas fa-calendar-alt"></i>
+											<div class="col-sm-8">
+												<div class="input-group date">
+													<div class="input-group-addon">
+														<i class="fas fa-calendar-alt"></i>
+													</div>
+													<input type="text" class="form-control pull-right"
+														id="datepicker" placeholder="2019/05/01"
+														th:field="*{refeDate}">
 												</div>
-												<input type="text" class="form-control pull-right"
-													id="datepicker" placeholder="2019/05/01" th:field="*{refeDate}">
+											</div>
+										</div>
+										<div class="form-group">
+											<label for="inputPassword3" class="col-sm-2 control-label">日付ID</label>
+											<div class="col-sm-8">
+												<div class="input-group">
+													<div class="input-group-addon">
+														<i class="fas fa-lightbulb" style="width: 12.63px;"></i>
+													</div>
+													<input type="text" class="form-control" placeholder="日付ID"
+														th:field="*{nameId}">
+												</div>
 											</div>
 										</div>
 									</div>
-									<div class="form-group">
-										<label for="inputPassword3" class="col-sm-2 control-label">日付ID</label>
-										<div class="col-sm-8">
-											<div class="input-group">
-												<div class="input-group-addon">
-													<i class="fas fa-lightbulb" style="width: 12.63px;"></i>
-												</div>
-												<input type="text" class="form-control" placeholder="日付ID" th:field="*{nameId}">
-											</div>
-										</div>
+									<!-- /.card-body -->
+									<div class="card-footer text-center">
+										<button type="submit" class="btn btn-info">計算する</button>
 									</div>
-								</div>
-								<!-- /.card-body -->
-								<div class="card-footer text-center">
-									<button type="submit" class="btn btn-info">計算する</button>
-								</div>
-								<div th:object="${calc}">
-									<p th:text="*{calcResultDate}"></p>
-								</div>
-								<!-- /.card-footer -->
-							</form>
+									<div th:object="${calc}">
+										<p th:text="*{calcResultDate}"></p>
+									</div>
+									<!-- /.card-footer -->
+								</form>
+							</div>
 						</div>
+						<!-- /.box-body -->
 					</div>
-					<!-- /.box-body -->
-				</div>
-				<!-- /.box -->
-				<div class="box">
-					<div class="box-header with-border">
-						<h3 class="box-title">日付計算式一覧</h3>
+					<!-- /.box -->
+					<div class="box">
+						<div class="box-header with-border">
+							<h3 class="box-title">日付計算式一覧</h3>
 
-						<div class="box-tools">
-							<a th:href="@{'/create'}">
-								<button type="submit" class="btn btn-default">計算式新規作成</button>
-							</a>
+							<div class="box-tools">
+								<a th:href="@{'/create'}">
+									<button type="submit" class="btn btn-default">計算式新規作成</button>
+								</a>
+							</div>
+						</div>
+						<!-- /.box-header -->
+						<div class="box-body table-responsive">
+							<table class="table table-hover">
+								<tbody>
+									<tr>
+										<th>日付ID</th>
+										<th>名前</th>
+										<th>Year</th>
+										<th>Month</th>
+										<th>Day</th>
+										<th></th>
+										<th></th>
+									</tr>
+									<tr th:each="result : ${results}" th:object="${result}">
+										<td class="text-str" th:text="*{nameId}"></td>
+										<td class="text-str" th:text="*{name}"></td>
+										<td class="text-str" th:text="*{adYears}"></td>
+										<td class="text-str" th:text="*{adMonths}"></td>
+										<td class="text-str" th:text="*{adDays}"></td>
+										<td><a th:href="@{/edit/{nameId}(nameId=*{nameId})}"
+											class="btn btn-info">編集</a></td>
+										<td><form th:action="@{/{nameId}(nameId=*{nameId})}"
+												method="post">
+												<button type="submit" class="btn btn-info">削除</button>
+											</form></td>
+									</tr>
+								</tbody>
+							</table>
 						</div>
 					</div>
-					<!-- /.box-header -->
-					<div class="box-body table-responsive">
-						<table class="table table-hover">
-							<tbody>
-								<tr>
-									<th>日付ID</th>
-									<th>名前</th>
-									<th>Year</th>
-									<th>Month</th>
-									<th>Day</th>
-									<th></th>
-									<th></th>
-								</tr>
-								<tr th:each="result : ${results}" th:object="${result}">
-									<td class="text-str" th:text="*{nameId}"></td>
-									<td class="text-str" th:text="*{name}"></td>
-									<td class="text-str" th:text="*{adYears}"></td>
-									<td class="text-str" th:text="*{adMonths}"></td>
-									<td class="text-str" th:text="*{adDays}"></td>
-									<td><a th:href="@{/edit/{nameId}(nameId=*{nameId})}"
-										class="btn btn-info">編集</a></td>
-									<td><form th:action="@{/{nameId}(nameId=*{nameId})}"
-											method="post">
-											<button type="submit" class="btn btn-info">削除</button>
-										</form></td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
 					<!-- /.box-body -->
-				</div>
-			</section>
-			<!-- /.content -->
+				</section>
+
+				<!-- /.content -->
+			</div>
 		</div>
+
 		<!-- /.content-wrapper -->
 
 		<!-- Main Footer -->
@@ -206,6 +209,5 @@
 			});
 		});
 	</script>
-
 </body>
 </html>

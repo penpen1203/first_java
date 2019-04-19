@@ -40,28 +40,12 @@ public class DaysController {
     if (bindingResult.hasErrors()) {
       return "redirect:index";
     }
-    CalcDays result = service.search(calc.getNameId());
-    calc.setCalcResultDate(service.calculate(result, calc.getRefeDate()));
+    if (service.search(calc.getNameId()) == null) {
+      return "redirect:index";
+    }
+    calc.setCalcResultDate(service.calculate(service.search(calc.getNameId()), calc.getRefeDate()));
     model.addAttribute("calc", calc);
     return "index";
-  }
-
-
-  @RequestMapping(value = "/edit/{nameId}", method = RequestMethod.GET)
-  public String detail(Model model, @PathVariable String nameId) {
-
-    model.addAttribute("calcResult", service.search(nameId));
-    return "edit";
-
-  }
-
-  @RequestMapping(value = "/edit/{nameId}", method = RequestMethod.POST)
-  @Transactional
-  public String edit(@ModelAttribute CalcDays calcDays) {
-
-    service.update(calcDays);
-    return "redirect:index";
-
   }
 
   @RequestMapping(value = "/{nameId}", method = RequestMethod.POST)
@@ -72,8 +56,6 @@ public class DaysController {
     return "redirect:index";
 
   }
-
-
 
 }
 
