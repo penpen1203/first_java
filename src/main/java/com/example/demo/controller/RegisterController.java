@@ -1,27 +1,33 @@
 package com.example.demo.controller;
 
+import java.util.List;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import com.example.demo.Domain.CalcDays;
 import com.example.demo.service.DaysService;
 
 @Controller
-@RequestMapping(value = "/create")
+@RequestMapping(value = "/index")
 public class RegisterController {
 
   @Autowired
   private DaysService service;
 
-  // createページ内にエンティティのインスタンスをセット
   @RequestMapping(method = RequestMethod.GET)
-  public String newCalc(CalcDays calcDays) {
-    return "create";
+  public String index(CalcDays calcDays, Model model) {
+
+    List<CalcDays> results = service.searchAll();
+    model.addAttribute("results", results);
+    return "index";
+
   }
 
   // セットされたインスタンスに値を代入
@@ -29,10 +35,20 @@ public class RegisterController {
   @Transactional
   public String create(@ModelAttribute @Validated CalcDays calcDays, BindingResult bindingResult) {
     if (bindingResult.hasErrors()) {
-      return "create";
+      return "redirect:index";
     }
     service.create(calcDays);
     return "redirect:index";
   }
+
+  @RequestMapping(value = "/{nameId}", method = RequestMethod.POST)
+  @Transactional
+  public String delte(@PathVariable String nameId) {
+
+    service.delete(nameId);
+    return "redirect:index";
+
+  }
+
 }
 
