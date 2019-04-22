@@ -76,8 +76,9 @@
 							<div class="card card-info">
 								<!-- /.card-header -->
 								<!-- form start -->
-								<form class="form-horizontal" action="#"
-									th:action="@{/calcList/edit/{nameId}(nameId=${calcResult.nameId})}" th:method="post" th:object="${calcResult}">
+								<form class="form-horizontal" id="form" action="#"
+									th:action="@{/calcList/edit/{nameId}(nameId=${calcResult.nameId})}"
+									th:method="post" th:object="${calcResult}">
 									<div class="card-body">
 										<div class="form-group">
 											<label for="input" class="col-sm-2 control-label">日付ID</label>
@@ -161,5 +162,32 @@
 	<!-- AdminLTE App -->
 	<script src="../static/js/adminlte.min.js"
 		th:src="@{/js/adminlte.min.js}"></script>
+			<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/additional-methods.min.js"></script>
+	<script src="../static/js/script.js" th:src="@{/js/script.js}"></script>
+	<script>
+	$(function() {
+		$('#form').validate({
+			rules : {
+				nameId : {
+					required : true,
+				},
+				name : {
+					required : true,
+				},
+			},
+			messages : {
+				nameId : {
+					required : "日付IDは必須項目です。",
+				},
+				name : {
+					required : "名前は必須項目です。",
+				},
+			},
+		});
+	});
+	</script>
 </body>
 </html>

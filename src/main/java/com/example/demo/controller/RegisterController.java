@@ -15,13 +15,12 @@ import com.example.demo.Domain.CalcDays;
 import com.example.demo.service.DaysService;
 
 @Controller
-@RequestMapping(value = "/index")
 public class RegisterController {
 
   @Autowired
   private DaysService service;
 
-  @RequestMapping(method = RequestMethod.GET)
+  @RequestMapping(value = "/index", method = RequestMethod.GET)
   public String index(CalcDays calcDays, Model model) {
 
     List<CalcDays> results = service.searchAll();
@@ -31,22 +30,23 @@ public class RegisterController {
   }
 
   // セットされたインスタンスに値を代入
-  @RequestMapping(method = RequestMethod.POST)
+  @RequestMapping(value = "/index", method = RequestMethod.POST)
   @Transactional
-  public String create(@ModelAttribute @Validated CalcDays calcDays, BindingResult bindingResult) {
+  public String create(@ModelAttribute @Validated CalcDays calcDays, BindingResult bindingResult,
+      Model model) {
     if (bindingResult.hasErrors()) {
-      return "redirect:index";
+      return index(calcDays, model);
     }
     service.create(calcDays);
-    return "redirect:index";
+    return "redirect:/index";
   }
 
   @RequestMapping(value = "/{nameId}", method = RequestMethod.POST)
   @Transactional
-  public String delte(@PathVariable String nameId) {
+  public String delete(@PathVariable String nameId) {
 
     service.delete(nameId);
-    return "redirect:index";
+    return "redirect:/index";
 
   }
 

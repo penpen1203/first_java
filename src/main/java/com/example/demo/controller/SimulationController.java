@@ -18,7 +18,8 @@ public class SimulationController {
   private DaysService service;
 
   @RequestMapping(value = "/simulation", method = RequestMethod.GET)
-  public String simulation(@ModelAttribute("calc") Calculation calc) {
+  public String simulation(@ModelAttribute("calc") Calculation calc, Model model) {
+    model.addAttribute("calc", calc);
     return "simulation";
   }
 
@@ -26,10 +27,8 @@ public class SimulationController {
   public String calculate(@ModelAttribute @Validated Calculation calc, BindingResult bindingResult,
       Model model) {
     if (bindingResult.hasErrors()) {
-      return "redirect:simulation";
-    }
-    if (service.search(calc.getNameId()) == null) {
-      return "redirect:simulation";
+
+      return simulation(calc, model);
     }
     calc.setCalcResultDate(service.calculate(service.search(calc.getNameId()), calc.getRefeDate()));
     model.addAttribute("calc", calc);

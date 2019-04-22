@@ -73,7 +73,7 @@
 							<div class="card card-info">
 								<!-- /.card-header -->
 								<!-- form start -->
-								<form class="form-horizontal" method="post"
+								<form class="form-horizontal" id="form" method="post"
 									th:action="@{/simulation}" th:object="${calc}">
 									<div class="card-body">
 										<div class="form-group">
@@ -84,10 +84,13 @@
 													<div class="input-group-addon">
 														<i class="fas fa-calendar-alt"></i>
 													</div>
-													<input type="text" class="form-control pull-right"
+													<input type="text" name="refeDate" class="form-control pull-right"
 														id="datepicker" placeholder="2019/05/01"
 														th:field="*{refeDate}">
+													<div th:if="${#fields.hasErrors('refeDate')}"
+														th:errors="*{refeDate}" th:errorclass="help-block"></div>
 												</div>
+												<div class="refeDate-error"></div>
 											</div>
 										</div>
 										<div class="form-group">
@@ -97,9 +100,12 @@
 													<div class="input-group-addon">
 														<i class="fas fa-lightbulb" style="width: 12.63px;"></i>
 													</div>
-													<input type="text" class="form-control" placeholder="日付ID"
+													<input type="text" name="nameId" class="form-control" placeholder="日付ID"
 														th:field="*{nameId}">
+													<div th:if="${#fields.hasErrors('nameId')}"
+														th:errors="*{nameId}" th:errorclass="help-block"></div>
 												</div>
+												<div class="nameId-error"></div>
 											</div>
 										</div>
 									</div>
@@ -151,6 +157,11 @@
 	<!-- AdminLTE App -->
 	<script src="../static/js/adminlte.min.js"
 		th:src="@{/js/adminlte.min.js}"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/additional-methods.min.js"></script>
+	<script src="../static/js/script.js" th:src="@{/js/script.js}"></script>
 	<script>
 		$(function() {
 			$('#datepicker').datepicker({
@@ -161,6 +172,35 @@
 				format : 'yyyy/mm/dd',
 				todayHighlight : true,
 				todayBtn : true,
+			});
+			$('#form').validate({
+				rules : {
+					nameId : {
+						required : true,
+					},
+					refeDate : {
+						required : true,
+						date:true,
+					},
+				},
+				messages : {
+					nameId : {
+						required : "日付IDは必須項目です。",
+					},
+					refeDate : {
+						required : "基準日は必須項目です。",
+						date:"日付の形式で入力してください。",
+					},
+				},
+				errorPlacement:function(error,element){
+					if(element.attr('name')=="nameId"){
+					error.insertAfter('.nameId-error');
+					}else if(element.attr('name')=="refeDate"){
+						error.insertAfter('.refeDate-error');
+					}else{
+						error.insertAfter(element);
+					}
+				},
 			});
 		});
 	</script>

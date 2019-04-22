@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
 import com.example.demo.Domain.CalcDays;
 import com.example.demo.service.DaysService;
 
@@ -31,17 +30,15 @@ public class EditController {
 
   @RequestMapping(value = "calcList/edit/{nameId}", method = RequestMethod.POST)
   @Transactional
-  public ModelAndView update(@ModelAttribute @Validated CalcDays calcDays,
-      BindingResult bindingResult, ModelAndView mav) {
+  public String update(@ModelAttribute @Validated CalcDays calcDays, BindingResult bindingResult,
+      Model model) {
     if (bindingResult.hasErrors()) {
 
-      mav.addObject("calcResult", calcDays);
-      mav.setViewName("redirect:/calcList/edit/{nameId}");
-      return mav;
+      model.addAttribute("calcResult", calcDays);
+      return "redirect:/calcList/edit/{nameId}";
     }
-    mav.addObject("calcResult", service.update(calcDays));
-    mav.setViewName("redirect:/index");
-    return mav;
+    service.update(calcDays);
+    return "redirect:/index";
   }
 
 }
