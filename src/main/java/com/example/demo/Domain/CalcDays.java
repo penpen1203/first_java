@@ -16,8 +16,8 @@ import lombok.NoArgsConstructor;
 @Table(name = "java_study")
 public class CalcDays {
 
-  @NotBlank
   @Id
+  @NotBlank
   @Column(name = "nameId", length = 11, nullable = false)
   private String nameId;
 

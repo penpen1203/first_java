@@ -20,13 +20,6 @@ public class DaysService {
     return repository.findAll();
   }
 
-  public String calculate(CalcDays calcDays, LocalDate refeDate) {
-    LocalDate ld2 = refeDate.plusDays(calcDays.getAdDays()).plusMonths(calcDays.getAdMonths())
-        .plusYears(calcDays.getAdYears());
-    return ld2.format(DateTimeFormatter.ofPattern("yyyy/MM/dd"));
-
-  }
-
   public CalcDays search(String nameId) {
     return repository.findByNameIdIs(nameId);
 
@@ -45,6 +38,11 @@ public class DaysService {
     repository.deleteById(nameId);
   }
 
+  public String calculate(CalcDays calcDays, LocalDate refeDate) {
+    LocalDate ld2 = refeDate.plusDays(calcDays.getAdDays()).plusMonths(calcDays.getAdMonths())
+        .plusYears(calcDays.getAdYears());
+    return ld2.format(DateTimeFormatter.ofPattern("yyyy/MM/dd"));
 
+  }
 
 }
