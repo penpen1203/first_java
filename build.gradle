@@ -21,9 +21,9 @@ dependencies {
 	implementation 'org.projectlombok:lombok'
 	implementation 'org.springframework.boot:spring-boot-devtools'
 	runtimeOnly 'mysql:mysql-connector-java'
-	runtimeOnly('com.h2database:h2')
+	runtimeOnly 'com.h2database:h2'
 	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	
+	testImplementation 'com.codeborne:selenide:4.9'
 	
 }
