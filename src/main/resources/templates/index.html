@@ -213,11 +213,12 @@
 	<script src="../static/js/script.js" th:src="@{/js/script.js}"></script>
 
 	<script>
-/* 		$(function() {
+		$(function() {
 			$('#form').validate({
 				rules : {
 					nameId : {
 						required : true,
+						maxlength : 11,
 					},
 					name : {
 						required : true,
@@ -226,6 +227,7 @@
 				messages : {
 					nameId : {
 						required : "日付IDは必須項目です。",
+						maxlength : "日付IDは11文字以内で入力してください。",
 					},
 					name : {
 						required : "名前は必須項目です。",
@@ -233,6 +235,6 @@
 				},
 			});
 		});
- */	</script>
+	</script>
 </body>
 </html>

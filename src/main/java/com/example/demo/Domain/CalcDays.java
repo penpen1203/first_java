@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,6 +19,7 @@ public class CalcDays {
 
   @Id
   @NotBlank
+  @Size(min = 0, max = 11)
   @Column(name = "nameId", length = 11, nullable = false)
   private String nameId;
 
