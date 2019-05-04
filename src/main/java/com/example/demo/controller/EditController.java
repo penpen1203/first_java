@@ -22,7 +22,7 @@ public class EditController {
   private DaysService service;
 
   @GetMapping(value = "calcList/edit/{nameId}")
-  public String edit(@PathVariable String nameId, CalcDays calcDays, Model model) {
+  public String edit(@PathVariable("nameId") String nameId, CalcDays calcDays, Model model) {
 
     model.addAttribute("calcResult", service.search(nameId));
     return "calcList/edit";

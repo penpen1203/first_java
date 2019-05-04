@@ -84,4 +84,11 @@ public class RegisterControllerTest {
         .andExpect(status().isOk()).andExpect(view().name("index"));
   }
 
+  @Test
+  public void 削除処理を行うとサービスで処理されて同一画面に遷移される事() throws Exception {
+    sut.perform(post("/{nameId}", "AD01")).andExpect(status().is3xxRedirection())
+        .andExpect(view().name("redirect:/index"));
+    verify(service, times(1)).delete(any());
+  }
+
 }

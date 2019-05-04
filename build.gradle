@@ -24,6 +24,6 @@ dependencies {
 	runtimeOnly 'com.h2database:h2'
 	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	testImplementation 'com.codeborne:selenide:4.9'
+	testImplementation 'com.codeborne:selenide:5.1.0'
 	
 }
