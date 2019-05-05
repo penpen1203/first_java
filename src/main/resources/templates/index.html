@@ -48,13 +48,14 @@
 				<!-- Content Header (Page header) -->
 				<section class="content-header">
 					<h4 class=" inline">
-						<a th:href="@{/index}" style="color: #333333"> 日付カリキュレーター <small>日付計算装置</small>
+						<a th:href="@{/index}" style="color: #333333" id="indexNavigation">
+							日付カリキュレーター <small>日付計算装置</small>
 						</a>
 					</h4>
 
 					<div class="pull-right inline">
 						<a th:href="@{'/simulation'}">
-							<button type="submit" class="btn btn-default">日付シミュレーションページへ</button>
+							<button type="submit" class="btn btn-default" id="simNavigation">日付シミュレーションページへ</button>
 						</a>
 					</div>
 				</section>
@@ -67,7 +68,7 @@
 							<!-- /.box-tools -->
 						</div>
 						<!-- /.box-header -->
-						<div class="box-body col-sm-offset-1">
+						<div class="box-body">
 							<div class="card card-info">
 								<!-- /.card-header -->
 								<!-- form start -->
@@ -125,7 +126,7 @@
 									<!-- /.card-body -->
 
 									<div class="card-footer text-center">
-										<button type="submit" class="btn btn-info">作成</button>
+										<button type="submit" class="btn btn-info" id="createButton">作成</button>
 									</div>
 									<!-- /.card-footer -->
 								</form>
@@ -152,7 +153,8 @@
 										<th></th>
 										<th></th>
 									</tr>
-									<tr th:each="result : ${results}" th:object="${result}">
+									<tr th:each="result,stat : ${results}" th:object="${result}"
+										th:id="registerResult">
 										<td class="text-str" th:text="*{nameId}"></td>
 										<td class="text-str" th:text="*{name}"></td>
 										<td class="text-str" th:text="*{adYears}"></td>
@@ -160,10 +162,11 @@
 										<td class="text-str" th:text="*{adDays}"></td>
 										<td><a
 											th:href="@{/calcList/edit/{nameId}(nameId=*{nameId})}"
-											class="btn btn-info">編集</a></td>
+											class="btn btn-info" th:id="${stat.count}+'_editButton'">編集</a></td>
 										<td><form th:action="@{/{nameId}(nameId=*{nameId})}"
 												method="post">
-												<button type="submit" class="btn btn-info">削除</button>
+												<button type="submit" class="btn btn-info"
+													th:id="${stat.count}+'_delButton'">削除</button>
 											</form></td>
 									</tr>
 								</tbody>

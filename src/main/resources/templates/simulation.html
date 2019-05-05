@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>日付カリキュレーター</title>
+<title>計算ページ</title>
 <!-- Tell the browser to be responsive to screen width -->
 <meta
 	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
@@ -48,12 +48,12 @@
 				<!-- Content Header (Page header) -->
 				<section class="content-header">
 					<h4 class=" inline">
-						<a th:href="@{/index}" style="color: #333333"> 日付カリキュレーター <small>日付計算装置</small>
+						<a th:href="@{/index}" style="color: #333333" id="indexNavigation"> 日付カリキュレーター <small>日付計算装置</small>
 						</a>
 					</h4>
 					<div class="pull-right inline">
 						<a th:href="@{'/simulation'}">
-							<button type="submit" class="btn btn-default">日付シミュレーションページへ</button>
+							<button type="submit" class="btn btn-default" id="simNavigation">日付シミュレーションページへ</button>
 						</a>
 					</div>
 				</section>
@@ -88,7 +88,7 @@
 														id="datepicker" placeholder="2019/05/01"
 														th:field="*{refeDate}">
 													<div th:if="${#fields.hasErrors('refeDate')}"
-														th:errors="*{refeDate}" th:errorclass="help-block"></div>
+														th:errors="*{refeDate}" th:errorclass="help-block err"></div>
 												</div>
 												<div class="refeDate-error"></div>
 											</div>
@@ -101,9 +101,9 @@
 														<i class="fas fa-lightbulb" style="width: 12.63px;"></i>
 													</div>
 													<input type="text" name="nameId" class="form-control" placeholder="日付ID"
-														th:field="*{nameId}">
+														th:field="*{nameId}" th:errorclass="err">
 													<div th:if="${#fields.hasErrors('nameId')}"
-														th:errors="*{nameId}" th:errorclass="help-block"></div>
+														th:errors="*{nameId}" th:errorclass="help-block err"></div>
 												</div>
 												<div class="nameId-error"></div>
 											</div>
@@ -111,10 +111,10 @@
 									</div>
 									<!-- /.card-body -->
 									<div class="card-footer text-center">
-										<button type="submit" class="btn btn-info">計算する</button>
+										<button type="submit" class="btn btn-info" id="simButton">計算する</button>
 									</div>
 									<div th:object="${calc}">
-										<p th:text="*{calcResultDate}"></p>
+										<p class="text-center" th:text="*{calcResultDate}" id="calcResult"></p>
 									</div>
 									<!-- /.card-footer -->
 								</form>
@@ -171,7 +171,7 @@
 				clearBtn : true,
 				format : 'yyyy/mm/dd',
 				todayHighlight : true,
-				todayBtn : true,
+				todayBtn : "linked",
 			});
 			$('#form').validate({
 				rules : {
