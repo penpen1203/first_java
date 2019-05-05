@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>日付カリキュレーター</title>
+<title>編集ページ</title>
 <!-- Tell the browser to be responsive to screen width -->
 <meta
 	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
@@ -49,13 +49,13 @@
 				<!-- Content Header (Page header) -->
 				<section class="content-header">
 					<h4 class=" inline">
-						<a th:href="@{/index}" style="color: #333333"> 日付カリキュレーター <small>日付計算装置</small>
+						<a th:href="@{/index}" style="color: #333333" id="indexNavigation"> 日付カリキュレーター <small>日付計算装置</small>
 						</a>
 					</h4>
 
 					<div class="pull-right inline">
 						<a th:href="@{'/simulation'}">
-							<button type="submit" class="btn btn-default">日付シミュレーションページへ</button>
+							<button type="submit" class="btn btn-default" id="simNavigation">日付シミュレーションページへ</button>
 						</a>
 					</div>
 				</section>
@@ -121,7 +121,7 @@
 									<!-- /.card-body -->
 
 									<div class="card-footer text-center">
-										<button type="submit" class="btn btn-info">編集</button>
+										<button type="submit" class="btn btn-info" id="updateButton">編集</button>
 									</div>
 									<!-- /.card-footer -->
 								</form>
