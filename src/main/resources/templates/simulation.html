@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>日付カリキュレーター</title>
+<title>計算ページ</title>
 <!-- Tell the browser to be responsive to screen width -->
 <meta
 	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
@@ -48,11 +48,9 @@
 				<!-- Content Header (Page header) -->
 				<section class="content-header">
 					<h4 class=" inline">
-						<a th:href="@{/index}" style="color: #333333" id="indexNavigation">
-							日付カリキュレーター <small>日付計算装置</small>
+						<a th:href="@{/index}" style="color: #333333" id="indexNavigation"> 日付カリキュレーター <small>日付計算装置</small>
 						</a>
 					</h4>
-
 					<div class="pull-right inline">
 						<a th:href="@{'/simulation'}">
 							<button type="submit" class="btn btn-default" id="simNavigation">日付シミュレーションページへ</button>
@@ -62,123 +60,73 @@
 
 				<!-- Main content -->
 				<section class="content container-fluid">
+
+					<!--------------------------
+        | Your Page Content Here |
+        -------------------------->
 					<div class="box">
-						<div class="box-header with-border">
-							<h3 class="box-title">日付計算式新規登録</h3>
-							<!-- /.box-tools -->
-						</div>
-						<!-- /.box-header -->
 						<div class="box-body">
+							<div class="box-header with-border">
+								<h3 class="box-title">日付計算</h3>
+								<!-- /.box-tools -->
+							</div>
 							<div class="card card-info">
 								<!-- /.card-header -->
 								<!-- form start -->
-								<form class="form-horizontal" id="form" th:action="@{/index}"
-									th:method="post" th:object="${calcDays}">
+								<form class="form-horizontal" id="form" method="post"
+									th:action="@{/simulation}" th:object="${calc}">
 									<div class="card-body">
 										<div class="form-group">
-											<label for="inputEmail3" class="col-sm-2 control-label">日付ID</label>
+											<label for="input" class="col-sm-2 control-label">基準日</label>
 
 											<div class="col-sm-8">
-												<input th:field="*{nameId}" type="text" name="nameId"
-													class="form-control" placeholder="AD01" th:errorclass="err">
-												<div th:if="${#fields.hasErrors('nameId')}"
-													th:errors="*{nameId}" th:errorclass="help-block"></div>
+												<div class="input-group date">
+													<div class="input-group-addon">
+														<i class="fas fa-calendar-alt"></i>
+													</div>
+													<input type="text" name="refeDate" class="form-control pull-right"
+														id="datepicker" placeholder="2019/05/01"
+														th:field="*{refeDate}">
+													<div th:if="${#fields.hasErrors('refeDate')}"
+														th:errors="*{refeDate}" th:errorclass="help-block err"></div>
+												</div>
+												<div class="refeDate-error"></div>
 											</div>
 										</div>
 										<div class="form-group">
-											<label for="input" class="col-sm-2 control-label">名前</label>
+											<label for="inputPassword3" class="col-sm-2 control-label">日付ID</label>
 											<div class="col-sm-8">
-												<input th:field="*{name}" type="text" name="name"
-													class="form-control" placeholder="翌日" th:errorclass="err">
-												<div th:if="${#fields.hasErrors('name')}"
-													th:errors="*{name}" th:errorclass="err"></div>
+												<div class="input-group">
+													<div class="input-group-addon">
+														<i class="fas fa-lightbulb" style="width: 12.63px;"></i>
+													</div>
+													<input type="text" name="nameId" class="form-control" placeholder="日付ID"
+														th:field="*{nameId}" th:errorclass="err">
+													<div th:if="${#fields.hasErrors('nameId')}"
+														th:errors="*{nameId}" th:errorclass="help-block err"></div>
+												</div>
+												<div class="nameId-error"></div>
 											</div>
 										</div>
-										<div class="form-group">
-											<label for="input" class="col-sm-2 control-label">Year</label>
-											<div class="col-sm-8">
-												<input th:field="*{adYears}" type="text" name="adYears"
-													class="form-control" placeholder="0" th:errorclass="err">
-												<div th:if="${#fields.hasErrors('adYears')}"
-													th:errors="*{adYears}" th:errorclass="err"></div>
-											</div>
-										</div>
-										<div class="form-group">
-											<label for="input" class="col-sm-2 control-label">Month</label>
-											<div class="col-sm-8">
-												<input th:field="*{adMonths}" type="text" name="adMonths"
-													class="form-control" placeholder="0" th:errorclass="err">
-												<div th:if="${#fields.hasErrors('adMonths')}"
-													th:errors="*{adMonths}" th:errorclass="err"></div>
-											</div>
-										</div>
-										<div class="form-group">
-											<label for="input" class="col-sm-2 control-label">Day</label>
-											<div class="col-sm-8">
-												<input th:field="*{adDays}" type="text" name="adDays"
-													class="form-control" placeholder="1" th:errorclass="err">
-												<div th:if="${#fields.hasErrors('adDays')}"
-													th:errors="*{adDays}" th:errorclass="err"></div>
-											</div>
-										</div>
-
 									</div>
 									<!-- /.card-body -->
-
 									<div class="card-footer text-center">
-										<button type="submit" class="btn btn-info" id="createButton">作成</button>
+										<button type="submit" class="btn btn-info" id="simButton">計算する</button>
+									</div>
+									<div th:object="${calc}">
+										<p class="text-center" th:text="*{calcResultDate}" id="calcResult"></p>
 									</div>
 									<!-- /.card-footer -->
 								</form>
 							</div>
 						</div>
+						<!-- /.box-header -->
 
 						<!-- /.box-body -->
 					</div>
-					<!-- /.box -->
-					<div class="box">
-						<div class="box-header with-border">
-							<h3 class="box-title">日付計算式一覧</h3>
-						</div>
-						<!-- /.box-header -->
-						<div class="box-body table-responsive">
-							<table class="table table-hover">
-								<tbody>
-									<tr>
-										<th>日付ID</th>
-										<th>名前</th>
-										<th>Year</th>
-										<th>Month</th>
-										<th>Day</th>
-										<th></th>
-										<th></th>
-									</tr>
-									<tr th:each="result,stat : ${results}" th:object="${result}"
-										th:id="registerResult">
-										<td class="text-str" th:text="*{nameId}"></td>
-										<td class="text-str" th:text="*{name}"></td>
-										<td class="text-str" th:text="*{adYears}"></td>
-										<td class="text-str" th:text="*{adMonths}"></td>
-										<td class="text-str" th:text="*{adDays}"></td>
-										<td><a
-											th:href="@{/calcList/edit/{nameId}(nameId=*{nameId})}"
-											class="btn btn-info" th:id="${stat.count}+'_editButton'">編集</a></td>
-										<td><form th:action="@{/{nameId}(nameId=*{nameId})}"
-												method="post">
-												<button type="submit" class="btn btn-info"
-													th:id="${stat.count}+'_delButton'">削除</button>
-											</form></td>
-									</tr>
-								</tbody>
-							</table>
-						</div>
-					</div>
-					<!-- /.box-body -->
 				</section>
-
-				<!-- /.content -->
 			</div>
-
+			<!-- /.content -->
 		</div>
 		<!-- /.content-wrapper -->
 
@@ -214,27 +162,44 @@
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/additional-methods.min.js"></script>
 	<script src="../static/js/script.js" th:src="@{/js/script.js}"></script>
-
 	<script>
 		$(function() {
+			$('#datepicker').datepicker({
+				language : 'ja',
+				autoclose : true,
+				assumeNearbyYear : true,
+				clearBtn : true,
+				format : 'yyyy/mm/dd',
+				todayHighlight : true,
+				todayBtn : "linked",
+			});
 			$('#form').validate({
 				rules : {
 					nameId : {
 						required : true,
-						maxlength : 11,
 					},
-					name : {
+					refeDate : {
 						required : true,
+						date:true,
 					},
 				},
 				messages : {
 					nameId : {
 						required : "日付IDは必須項目です。",
-						maxlength : "日付IDは11文字以内で入力してください。",
 					},
-					name : {
-						required : "名前は必須項目です。",
+					refeDate : {
+						required : "基準日は必須項目です。",
+						date:"日付の形式で入力してください。",
 					},
+				},
+				errorPlacement:function(error,element){
+					if(element.attr('name')=="nameId"){
+					error.insertAfter('.nameId-error');
+					}else if(element.attr('name')=="refeDate"){
+						error.insertAfter('.refeDate-error');
+					}else{
+						error.insertAfter(element);
+					}
 				},
 			});
 		});
