@@ -39,9 +39,9 @@ public class DaysService {
   }
 
   public String calculate(CalcDays calcDays, LocalDate refeDate) {
-    LocalDate ld2 = refeDate.plusDays(calcDays.getAdDays()).plusMonths(calcDays.getAdMonths())
+    LocalDate localDate = refeDate.plusDays(calcDays.getAdDays()).plusMonths(calcDays.getAdMonths())
         .plusYears(calcDays.getAdYears());
-    return ld2.format(DateTimeFormatter.ofPattern("yyyy/MM/dd"));
+    return localDate.format(DateTimeFormatter.ofPattern("yyyy/MM/dd"));
 
   }
 
