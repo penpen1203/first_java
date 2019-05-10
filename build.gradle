@@ -1,8 +1,8 @@
 plugins {
 	id 'org.springframework.boot' version '2.1.3.RELEASE'
 	id 'java'
+	id 'eclipse-wtp'
 	id 'war'
-	id 'application'
 }
 
 apply plugin: 'io.spring.dependency-management'
