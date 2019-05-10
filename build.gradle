@@ -1,7 +1,18 @@
+buildscript {
+	ext {
+			springBootVersion ='2.1.3.RELEASE'
+	}
+	repositories {
+			mavenCentral()
+	}
+	dependencies{
+			classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+	}
+}
+
 plugins {
 	id 'org.springframework.boot' version '2.1.3.RELEASE'
 	id 'java'
-	id 'eclipse-wtp'
 	id 'war'
 }
 
