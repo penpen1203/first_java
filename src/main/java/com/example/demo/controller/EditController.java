@@ -21,6 +21,12 @@ public class EditController {
   @Autowired
   private DaysService service;
 
+  /**
+   * @param nameId
+   * @param calcDays
+   * @param model
+   * @return
+   */
   @GetMapping(value = "calcList/edit/{nameId}")
   public String edit(@PathVariable("nameId") String nameId, CalcDays calcDays, Model model) {
 
@@ -29,6 +35,12 @@ public class EditController {
 
   }
 
+  /**
+   * @param calcDays
+   * @param bindingResult
+   * @param model
+   * @return
+   */
   @PostMapping(value = "calcList/edit/{nameId}")
   @Transactional
   public String update(@ModelAttribute @Validated CalcDays calcDays, BindingResult bindingResult,
