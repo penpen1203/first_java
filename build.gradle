@@ -41,3 +41,10 @@ dependencies {
 	testImplementation 'com.codeborne:selenide:5.1.0'
 	
 }
+
+test {
+	include 'demo/controller/*'
+	include 'demo/repository/*'
+	include 'demo/service/*'
+	exclude 'demo/view/*'
+}
