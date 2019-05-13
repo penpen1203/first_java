@@ -43,8 +43,8 @@ dependencies {
 }
 
 test {
-	include 'demo/controller/*'
-	include 'demo/repository/*'
-	include 'demo/service/*'
-	exclude 'demo/view/*'
+	include 'com/example/demo/controller/*'
+	include 'com/example/demo/repository/*'
+	include 'com/example/demo/service/*'
+	exclude 'com/example/demo/view/*'
 }
