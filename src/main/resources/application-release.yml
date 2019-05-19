@@ -1,0 +1,11 @@
+spring:
+  datasource:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    password: 0962690b
+    url: jdbc:mysql://java-study.chqri1rkitvo.ap-northeast-1.rds.amazonaws.com:3306/java_study
+    username: root
+  jpa:
+    database: MYSQL
+    hibernate:
+      ddl-auto: update
+    open-in-view: true
