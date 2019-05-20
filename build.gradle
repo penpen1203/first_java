@@ -27,6 +27,7 @@ repositories {
 
 defaultTasks 'test'
 
+//本番環境設定用
 bootRun {
 	systemProperties = System.properties
 }

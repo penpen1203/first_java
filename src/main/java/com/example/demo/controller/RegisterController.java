@@ -23,7 +23,7 @@ public class RegisterController {
   private DaysService service;
 
   @GetMapping(value = "/index")
-  public String index(@ModelAttribute CalcDays calcDays, Model model) {
+  public String index(@ModelAttribute("calcDays") CalcDays calcDays, Model model) {
 
     List<CalcDays> results = service.searchAll();
     model.addAttribute("results", results);
